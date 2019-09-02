@@ -32,6 +32,22 @@
                  <Label text="vertices" prefWidth="70"/>
                  <TextField fx:id="verticesTextField" prefWidth="30" text="10"/>
               </HBox>
+              <HBox prefWidth="100">
+                 <Label text="ants" prefWidth="70"/>
+                 <TextField fx:id="antsTextField" prefWidth="30" text="10"/>
+              </HBox>
+              <HBox prefWidth="100">
+                 <Label text="iterations" prefWidth="70"/>
+                 <TextField fx:id="iterationsTextField" prefWidth="30" text="50"/>
+              </HBox>
+              <HBox prefWidth="100">
+                 <Label text="pheromone" prefWidth="70"/>
+                 <TextField fx:id="pheromoneTextField" prefWidth="30" text="2"/>
+              </HBox>
+              <HBox prefWidth="100">
+                 <Label text="evaporation" prefWidth="70"/>
+                 <TextField fx:id="evaporationTextField" prefWidth="30" text="0.8"/>
+              </HBox>
            </children>
       </VBox>
    </children>

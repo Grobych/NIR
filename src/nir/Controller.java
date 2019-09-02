@@ -26,7 +26,7 @@ public class Controller {
 
     @FXML Canvas mapCanvas, robotCanvas, utilCanvas;
     @FXML Button runButton, initButton, createRouteButton, clearButton, createVerticesButton;
-    @FXML TextField obstaclesTextField, verticesTextField;
+    @FXML TextField obstaclesTextField, verticesTextField, antsTextField, iterationsTextField, pheromoneTextField, evaporationTextField;
 
     public void init(){
         RobotList.add(new Robot(30,50));
@@ -76,6 +76,11 @@ public class Controller {
     }
 
     public void createRoute(){
+        Integer ants = Integer.parseInt(antsTextField.getText());
+        Integer iteration = Integer.parseInt(iterationsTextField.getText());
+        Double pheromone = Double.parseDouble(pheromoneTextField.getText());
+        Double evaporation = Double.parseDouble(evaporationTextField.getText());
+        routing.setParams(ants,iteration,pheromone,evaporation);
         routing.generateGraph();
         //renderThread.drawGraph(routing.graph);
         Route res = routing.generateRoute();
