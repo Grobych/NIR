@@ -22,7 +22,7 @@
            <children>
               <Button fx:id="initButton" text="init" onAction="#init" prefWidth="70"></Button>
               <Button fx:id="runButton" text="Run" onAction="#runButtonClick" prefWidth="70" disable="true"></Button>
-              <Button fx:id="createVerticesButton" text="Vertices" onAction="#createVerticesButtonClick" disable="true" prefWidth="70"/>
+              <!--<Button fx:id="createVerticesButton" text="Vertices" onAction="#createVerticesButtonClick" disable="true" prefWidth="70"/>-->
               <Button fx:id="createRouteButton" text="Get route" onAction="#createRoute" disable="true" prefWidth="70"></Button>
               <Button fx:id="clearButton" text="Clear" onAction="#clearButtonClick" prefWidth="70"/>
               <HBox prefWidth="200">
@@ -33,10 +33,10 @@
                  <!--<Label text="vertices" prefWidth="150"/>-->
                  <!--<TextField fx:id="verticesTextField" prefWidth="50" text="10"/>-->
               <!--</HBox>-->
-              <!--<HBox prefWidth="200">-->
-                 <!--<Label text="ants" prefWidth="150"/>-->
-                 <!--<TextField fx:id="antsTextField" prefWidth="50" text="10"/>-->
-              <!--</HBox>-->
+              <HBox prefWidth="200">
+                 <Label text="ants" prefWidth="150"/>
+                 <TextField fx:id="antsTextField" prefWidth="50" text="10"/>
+              </HBox>
               <HBox prefWidth="200">
                  <Label text="iterations" prefWidth="150"/>
                  <TextField fx:id="iterationsTextField" prefWidth="50" text="50"/>
@@ -45,6 +45,17 @@
                  <Label text="pheromone" prefWidth="150"/>
                  <TextField fx:id="pheromoneTextField" prefWidth="50" text="1"/>
               </HBox>
+               <HBox prefWidth="200">
+                   <Label text="Goal Coeff" prefWidth="150"/>
+                   <TextField fx:id="goalCTextField" prefWidth="50" text="0.6"/>
+               </HBox><HBox prefWidth="200">
+               <Label text="Pheromone Coeff" prefWidth="150"/>
+               <TextField fx:id="pheromoneCTextField" prefWidth="50" text="0.5"/>
+                 </HBox>
+               <HBox prefWidth="200">
+                   <Label text="Random Coeff" prefWidth="150"/>
+                   <TextField fx:id="randomCTextField" prefWidth="50" text="1.1"/>
+               </HBox>
               <!--<HBox prefWidth="100">-->
                  <!--<Label text="evaporation" prefWidth="70"/>-->
                  <!--<TextField fx:id="evaporationTextField" prefWidth="30" text="0.8"/>-->

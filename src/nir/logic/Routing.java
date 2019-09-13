@@ -15,8 +15,22 @@ public class Routing implements Runnable {
     private int agentsNumber;
     private double phInit = 1;
     private double phThreshold = 0.1;
-    private double phEx = 100;
+    private double phEx = 1000;
     private double movingDist = 20;
+
+    private double gC, phC, rC;
+
+    private static boolean goalTaken = false;
+    public static boolean isGoalTaken(){
+        return goalTaken;
+    }
+    public Coordinate getStart(){
+        return this.start;
+    }
+
+    public Coordinate getGoal() {
+        return goal;
+    }
 
     public Routing(Coordinate start, Coordinate goal, int iterations, int agentsNamber, double phInit){
         this.start = start;
@@ -25,6 +39,12 @@ public class Routing implements Runnable {
         this.agentsNumber = agentsNamber;
         this.phInit = phInit;
         createAgents();
+    }
+
+    public void setParams(double goal, double ph, double rand){
+        this.gC = goal;
+        this.phC = ph;
+        this.rC = rand;
     }
 
     public void stop(){
@@ -43,6 +63,7 @@ public class Routing implements Runnable {
                     putPheromone(agent);
 //                    showPh();
                     if (goalTaken(agent)) {
+                        goalTaken = true;
                         expandPheromone(agent);
                         redirect(agent,start);
                         break;
@@ -104,7 +125,7 @@ public class Routing implements Runnable {
     }
 
     private boolean agentMoveTooLong(RobotAgent agent) {
-        if (agent.getMoveSize() > 100) return true;
+        if (agent.getMoveSize() > 150) return true;
         else return false;
     }
 
@@ -135,9 +156,9 @@ public class Routing implements Runnable {
         checkHight(agent,pheromoneVector);
         checkHight(agent,randomVector);
 
-        System.out.println("goal: "+goalVector[0]+" "+goalVector[1]);
-        System.out.println("pher: "+pheromoneVector[0]+" "+pheromoneVector[1]);
-        System.out.println("rand: "+randomVector[0]+" "+randomVector[1]);
+//        System.out.println("goal: "+goalVector[0]+" "+goalVector[1]);
+//        System.out.println("pher: "+pheromoneVector[0]+" "+pheromoneVector[1]);
+//        System.out.println("rand: "+randomVector[0]+" "+randomVector[1]);
 
         Coordinate res = calculatePoint(goalVector, pheromoneVector, randomVector, agent);
         return res;
@@ -145,8 +166,8 @@ public class Routing implements Runnable {
     }
     private Coordinate calculatePoint(double v1[], double v2[], double v3[], RobotAgent agent){
         double resV[] = new double[2];
-        resV[0] = v1[0]*0.8 + v2[0] *0.5 + v3[0];
-        resV[1] = v1[1]*0.8 + v2[1] *0.5 + v3[1];
+        resV[0] = v1[0]*gC + v2[0] *phC + v3[0] * rC;
+        resV[1] = v1[1]*gC + v2[1] *phC + v3[1] * rC;
         Coordinate result = new Coordinate(agent.getPosition().x + resV[0],agent.getPosition().y + resV[1]);
         return result;
     }
@@ -157,12 +178,12 @@ public class Routing implements Runnable {
         int y2 = y1 + (int) v[1];
         int delta = Map.getLevelUping(x1,y1,x2,y2);
         System.out.println("delta: "+delta);
-        System.out.println("before: "+v[0]+" "+v[1]);
+//        System.out.println("before: "+v[0]+" "+v[1]);
         if (delta > 3) {
             v[0] = v[0] * (4d / delta);
             v[1] = v[1] * (4d / delta); //TODO: choose different coef
         }
-        System.out.println("after: "+v[0]+" "+v[1]);
+//        System.out.println("after: "+v[0]+" "+v[1]);
         return v;
     }
 

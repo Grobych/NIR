@@ -8,7 +8,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import nir.logic.GraphRouting;
-import nir.logic.Intersection;
 import nir.logic.Routing;
 import nir.model.*;
 import nir.model.route.Route;
@@ -17,7 +16,6 @@ import org.locationtech.jts.geom.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Controller {
 
@@ -28,7 +26,7 @@ public class Controller {
 
     @FXML Canvas mapCanvas, robotCanvas, utilCanvas, pheromoneCanvas;
     @FXML Button runButton, initButton, createRouteButton, clearButton, createVerticesButton;
-    @FXML TextField agentsTextField, verticesTextField, antsTextField, iterationsTextField, pheromoneTextField, evaporationTextField;
+    @FXML TextField agentsTextField, verticesTextField, antsTextField, iterationsTextField, pheromoneTextField, evaporationTextField, goalCTextField, pheromoneCTextField, randomCTextField;
 
     public void init(){
         RobotList.add(new Robot(30,50));
@@ -44,7 +42,9 @@ public class Controller {
                 20,
                 Integer.parseInt(agentsTextField.getText()),
                 Double.parseDouble(pheromoneTextField.getText()));
-
+        routing.setParams(Double.parseDouble(goalCTextField.getText()),
+                Double.parseDouble(pheromoneCTextField.getText()),
+                Double.parseDouble(randomCTextField.getText()));
         if (renderThread != null) renderThread.reset();
         renderThread = new RenderThread();
         renderThread.setMapCanvas(mapCanvas,robotCanvas,utilCanvas, pheromoneCanvas);
@@ -91,32 +91,27 @@ public class Controller {
     }
 
     public void createVerticesButtonClick(){
-        Robot robot = RobotList.get(0);
-        Coordinate goal;
-        Random r = new Random();
-        do {
-            goal = new Coordinate(r.nextInt(200) + 800, r.nextInt(200) + 600);
-            if(Intersection.isIntersect(goal,ObstacleList.obstacles)) goal = null;
-        } while (goal == null);
         int n = Integer.parseInt(verticesTextField.getText());
-        graphRouting = new GraphRouting(robot.getPosition(),goal,n);
-        graphRouting.generateCoordinates();
-        renderThread.drawCoordinates(graphRouting.coordinates);
-        renderThread.drawGoal(new Goal(goal));
+        graphRouting = new GraphRouting(routing.getStart(),routing.getGoal(),n);
+        graphRouting.generateCoordinates(Routing.pheromoneMap.keySet().toArray(new Coordinate[Routing.pheromoneMap.keySet().size()]), routing.getStart(), routing.getGoal());
     }
 
     public void createRoute(){
+        if (!Routing.isGoalTaken()) return;
+
+        graphRouting = new GraphRouting(routing.getStart(),routing.getGoal());
+        graphRouting.generateCoordinates(Routing.pheromoneMap.keySet().toArray(new Coordinate[Routing.pheromoneMap.keySet().size()]), routing.getStart(), routing.getGoal());
+
         Integer ants = Integer.parseInt(antsTextField.getText());
         Integer iteration = Integer.parseInt(iterationsTextField.getText());
         Double pheromone = Double.parseDouble(pheromoneTextField.getText());
-        Double evaporation = Double.parseDouble(evaporationTextField.getText());
+        Double evaporation = 0.8;
         graphRouting.setParams(ants,iteration,pheromone,evaporation);
         graphRouting.generateGraph();
         //renderThread.drawGraph(graphRouting.graph);
         Route res = graphRouting.generateRoute();
 //        renderThread.drawGraph(graphRouting.graph);
         renderThread.drawRoute(res);
-        RobotList.get(0).setRoute(res);
     }
 
 
