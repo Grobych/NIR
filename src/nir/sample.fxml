@@ -15,39 +15,40 @@
             <Canvas fx:id="mapCanvas" height="800.0" layoutX="10.0" layoutY="13.0"  width="1200.0" />
             <Canvas fx:id="robotCanvas" height="800.0" layoutX="10.0" layoutY="13.0"  width="1200.0" />
             <Canvas fx:id="utilCanvas" height="800.0" layoutX="10.0" layoutY="13.0"  width="1200.0" />
+            <Canvas fx:id="pheromoneCanvas" height="800.0" layoutX="10.0" layoutY="13.0" width="1200.0"/>
          </children>
       </Pane>
-      <VBox prefHeight="800.0" prefWidth="100.0">
+      <VBox prefHeight="800.0" prefWidth="200.0">
            <children>
               <Button fx:id="initButton" text="init" onAction="#init" prefWidth="70"></Button>
-              <Button fx:id="createVerticesButton" text="Vertices" onAction="#createVerticesButtonClick" prefWidth="70"/>
-              <Button fx:id="createRouteButton" text="Get route" onAction="#createRoute" prefWidth="70"></Button>
-              <Button fx:id="runButton" text="Run" onAction="#runButtonClick" prefWidth="70" ></Button>
+              <Button fx:id="runButton" text="Run" onAction="#runButtonClick" prefWidth="70" disable="true"></Button>
+              <Button fx:id="createVerticesButton" text="Vertices" onAction="#createVerticesButtonClick" disable="true" prefWidth="70"/>
+              <Button fx:id="createRouteButton" text="Get route" onAction="#createRoute" disable="true" prefWidth="70"></Button>
               <Button fx:id="clearButton" text="Clear" onAction="#clearButtonClick" prefWidth="70"/>
-              <HBox prefWidth="100">
-                 <Label text="obstacles" prefWidth="70"/>
-                 <TextField fx:id="obstaclesTextField" prefWidth="30" text="5"/>
+              <HBox prefWidth="200">
+                 <Label text="Agents Number" prefWidth="150"/>
+                 <TextField fx:id="agentsTextField" prefWidth="50" text="2"/>
               </HBox>
-              <HBox prefWidth="100">
-                 <Label text="vertices" prefWidth="70"/>
-                 <TextField fx:id="verticesTextField" prefWidth="30" text="10"/>
+              <!--<HBox prefWidth="200">-->
+                 <!--<Label text="vertices" prefWidth="150"/>-->
+                 <!--<TextField fx:id="verticesTextField" prefWidth="50" text="10"/>-->
+              <!--</HBox>-->
+              <!--<HBox prefWidth="200">-->
+                 <!--<Label text="ants" prefWidth="150"/>-->
+                 <!--<TextField fx:id="antsTextField" prefWidth="50" text="10"/>-->
+              <!--</HBox>-->
+              <HBox prefWidth="200">
+                 <Label text="iterations" prefWidth="150"/>
+                 <TextField fx:id="iterationsTextField" prefWidth="50" text="50"/>
               </HBox>
-              <HBox prefWidth="100">
-                 <Label text="ants" prefWidth="70"/>
-                 <TextField fx:id="antsTextField" prefWidth="30" text="10"/>
+              <HBox prefWidth="200">
+                 <Label text="pheromone" prefWidth="150"/>
+                 <TextField fx:id="pheromoneTextField" prefWidth="50" text="1"/>
               </HBox>
-              <HBox prefWidth="100">
-                 <Label text="iterations" prefWidth="70"/>
-                 <TextField fx:id="iterationsTextField" prefWidth="30" text="50"/>
-              </HBox>
-              <HBox prefWidth="100">
-                 <Label text="pheromone" prefWidth="70"/>
-                 <TextField fx:id="pheromoneTextField" prefWidth="30" text="2"/>
-              </HBox>
-              <HBox prefWidth="100">
-                 <Label text="evaporation" prefWidth="70"/>
-                 <TextField fx:id="evaporationTextField" prefWidth="30" text="0.8"/>
-              </HBox>
+              <!--<HBox prefWidth="100">-->
+                 <!--<Label text="evaporation" prefWidth="70"/>-->
+                 <!--<TextField fx:id="evaporationTextField" prefWidth="30" text="0.8"/>-->
+              <!--</HBox>-->
            </children>
       </VBox>
    </children>

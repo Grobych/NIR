@@ -26,4 +26,8 @@ public class Goal {
     public int getR() {
         return R;
     }
+
+    public Coordinate getCoordinate(){
+        return this.coordinate;
+    }
 }
